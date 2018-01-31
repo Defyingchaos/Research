@@ -3,12 +3,16 @@ import sklearn
 from sklearn.svm import LinearSVC
 from sklearn import preprocessing
 from numpy import genfromtxt
+import os
+import sys
+sys.path.append('C:\\Users\Research\Research Data')
+
 
 #importing files to arrays
-CD = genfromtxt('SSCurveData.csv', delimiter=',')
-CL = genfromtxt('SSLabels.csv', delimiter=',')
-TCD = genfromtxt('SSCurveDataTest.csv', delimiter=',')
-TCL = genfromtxt('SSLablesTest.csv', delimiter=',')
+CD = genfromtxt('C:\\Users\Research\Research Data\SSCurveData.csv', delimiter=',')
+CL = genfromtxt('C:\\Users\Research\Research Data\SSLabels.csv', delimiter=',')
+TCD = genfromtxt('C:\\Users\Research\Research Data\SSCurveDataTest.csv', delimiter=',')
+TCL = genfromtxt('C:\\Users\Research\Research Data\SSLablesTest.csv', delimiter=',')
 
 #scaling data
 CD_scaled = preprocessing.scale(CD)

@@ -13,10 +13,10 @@ from numpy import genfromtxt
 from scipy.stats import randint as sp_randint
 
 #importing files to arrays
-CD = genfromtxt('SSCurveData.csv', delimiter=',')
-CL = genfromtxt('SSLabels.csv', delimiter=',')
-TCD = genfromtxt('SSCurveDataTest.csv', delimiter=',')
-TCL = genfromtxt('SSLablesTest.csv', delimiter=',')
+CD = genfromtxt('C:\\Users\Research\Research Data\SSCurveData.csv', delimiter=',')
+CL = genfromtxt('C:\\Users\Research\Research Data\SSLabels.csv', delimiter=',')
+TCD = genfromtxt('C:\\Users\Research\Research Data\SSCurveDataTest.csv', delimiter=',')
+TCL = genfromtxt('C:\\Users\Research\Research Data\SSLablesTest.csv', delimiter=',')
 print("data imported")
 
 #scaling data
