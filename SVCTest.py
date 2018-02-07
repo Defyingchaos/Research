@@ -11,17 +11,25 @@ from numpy import genfromtxt
 
 
 #importing files to arrays
-CD = genfromtxt('C:\\Users\Research\Research Data\SSCurveData.csv', delimiter=',')
-CL = genfromtxt('C:\\Users\Research\Research Data\SSLabels.csv', delimiter=',')
-TCD = genfromtxt('C:\\Users\Research\Research Data\SSCurveDataTest.csv', delimiter=',')
-TCL = genfromtxt('C:\\Users\Research\Research Data\SSLablesTest.csv', delimiter=',')
-
-
+#Pre seperated training and test data
+#CD = genfromtxt('C:\\Users\Research\Research Data\SSCurveData.csv', delimiter=',')
+#CL = genfromtxt('C:\\Users\Research\Research Data\SSLabels.csv', delimiter=',')
+#TCD = genfromtxt('C:\\Users\Research\Research Data\SSCurveDataTest.csv', delimiter=',')
+#TCL = genfromtxt('C:\\Users\Research\Research Data\SSLablesTest.csv', delimiter=',')
+#7k examples, not seperated
+#X_data = genfromtxt('C:\\Users\Research\Research Data\sevenkData.csv', delimiter=',')
+#Y_data = genfromtxt('C:\\Users\Research\Research Data\sevenkLabels.csv', delimiter =',')
+#22k examples, not seperated
+#X_data = genfromtxt('C:\\Users\Research\Research Data\entykData.csv', delimiter=',')
+#Y_data = genfromtxt('C:\\Users\Research\Research Data\entykLabels.csv', delimiter =',')
+#Full dataset
+X_data = genfromtxt('C:\\Users\Research\Research Data\completeData.csv', delimiter=',')
+Y_data = genfromtxt('C:\\Users\Research\Research Data\completeLabels.csv', delimiter =',')
 #scaling and splitting data
-CD_scaled = preprocessing.scale(CD)
-TCD_scaled = preprocessing.scale(TCD)
+#CD_scaled = preprocessing.scale(CD)
+#TCD_scaled = preprocessing.scale(TCD)
 
-X_train, X_test, Y_train, Y_test = train_test_split(CD, CL)
+X_train, X_test, Y_train, Y_test = train_test_split(X_data, Y_data)
 
 #Creating and training model
 model = SVC(C= 1.0, kernel='poly', degree = 2)
