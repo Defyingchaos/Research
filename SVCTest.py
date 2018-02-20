@@ -1,8 +1,12 @@
 #Import
 import numpy as np
 import sklearn
+import pandas as pd
+from scipy.stats import randint, expon 
 from sklearn.svm import SVC
 from sklearn.svm import NuSVC
+from sklearn.model_selection import GridSearchCV
+from sklearn.model_selection import RandomizedSearchCV
 from sklearn.metrics import accuracy_score, average_precision_score, f1_score
 from sklearn.model_selection import train_test_split
 from sklearn import preprocessing
@@ -11,30 +15,51 @@ from numpy import genfromtxt
 
 
 #importing files to arrays
-#Pre seperated training and test data
-#CD = genfromtxt('C:\\Users\Research\Research Data\SSCurveData.csv', delimiter=',')
-#CL = genfromtxt('C:\\Users\Research\Research Data\SSLabels.csv', delimiter=',')
-#TCD = genfromtxt('C:\\Users\Research\Research Data\SSCurveDataTest.csv', delimiter=',')
-#TCL = genfromtxt('C:\\Users\Research\Research Data\SSLablesTest.csv', delimiter=',')
+#1k Set 1Pre seperated training and test data
+#X_data = pd.read_csv("C:\\Users\Research\Research Data\SSCurveData.csv")
+#Y_data = pd.read_csv("C:\\Users\Research\Research Data\SSLabels.csv")
+#1k Set 2
+X_data = pd.read_csv("C:\\Users\Research\Research Data\SSCurveDataTest.csv")
+Y_data = pd.read_csv("C:\\Users\Research\Research Data\SSLablesTest.csv")
 #7k examples, not seperated
-#X_data = genfromtxt('C:\\Users\Research\Research Data\sevenkData.csv', delimiter=',')
-#Y_data = genfromtxt('C:\\Users\Research\Research Data\sevenkLabels.csv', delimiter =',')
+#X_data = pd.read_csv("C:\\Users\Research\Research Data\sevenkData.csv")
+#Y_data = pd.read_csv("C:\\Users\Research\Research Data\sevenkLabels.csv")
 #22k examples, not seperated
-#X_data = genfromtxt('C:\\Users\Research\Research Data\entykData.csv', delimiter=',')
-#Y_data = genfromtxt('C:\\Users\Research\Research Data\entykLabels.csv', delimiter =',')
+#X_data = pd.read_csv("C:\\Users\Research\Research Data\entykData.csv")
+#Y_data = pd.read_csv("C:\\Users\Research\Research Data\entykLabels.csv")
 #Full dataset
-X_data = genfromtxt('C:\\Users\Research\Research Data\completeData.csv', delimiter=',')
-Y_data = genfromtxt('C:\\Users\Research\Research Data\completeLabels.csv', delimiter =',')
+#X_data = pd.read_csv("C:\\Users\Research\Research Data\completeData.csv")
+#Y_data = pd.read_csv("C:\\Users\Research\Research Data\completeLabels.csv")
 #scaling and splitting data
 #CD_scaled = preprocessing.scale(CD)
 #TCD_scaled = preprocessing.scale(TCD)
+print("done")
+
 
 X_train, X_test, Y_train, Y_test = train_test_split(X_data, Y_data)
+#Exhaustive grid search parameters
+param_grid = {'C': [1,10, 100, 1000], 'kernel': ['rbf', 'poly', 'sigmoid', 'linear'], 'degree': [0, 1, 2, 3, 4, 5], 'gamma': [1e-3, 1e-4, 1e-5, 1e-6], 'coef0': [0,1,2,3,4,5]}
+#param_grid = {'C': [1,10,100,1000], 'kernel': ['sigmoid'], 'gamma': [1e-3, 1e-4, 1e-5, 1e-6], }, {'C': [1,10,100,1000], 'kernel': ['poly'], 'gamma': [1e-3, 1e-4, 1e-5, 1e-6], 'degree': [1,2,3,4,5,6,7]}, {'C': [1,10,100,1000], 'kernel': ['linear']}
+#Randomized grid search parameters
+param_dist = {'C': expon(scale = 100), 
+'gamma': expon(scale = .1), 
+'kernel': ['rbf', 'poly', 'sigmoid', 'linear'], 
+'degree': randint(1,100),
+'coef0': randint(0,100)}
+n_iter_search = 50
+
 
 #Creating and training model
-model = SVC(C= 1.0, kernel='poly', degree = 2)
-model.fit(X_train, Y_train)
+    #Regular model
+#model = SVC(C= 10, gamma= .0001, kernel= 'rbf', verbose = True)
+SVC = SVC(verbose = False)
+    #Regular grid search
+#model = GridSearchCV(SVC, param_grid=param_grid)
+    #Randomized Grid search
+model = RandomizedSearchCV(SVC, param_distributions=param_dist, n_iter=n_iter_search)
 
+    #Training
+model.fit(X_train, Y_train.values.ravel())
 
 
 #scoring model
@@ -56,7 +81,7 @@ def score():
     print("average_precision_score")
     print(aps)
 
-    print("hyperparameters")
-    print(model.get_params())
+    print("model hyperparameters")
+    print(model.best_params_)
 
 score()
