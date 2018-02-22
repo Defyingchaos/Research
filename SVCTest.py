@@ -1,6 +1,7 @@
 #Import
 import numpy as np
 import sklearn
+import pandas as pd
 from sklearn.svm import SVC
 from sklearn.svm import NuSVC
 from sklearn.metrics import accuracy_score, average_precision_score, f1_score
@@ -23,8 +24,10 @@ from numpy import genfromtxt
 #X_data = genfromtxt('C:\\Users\Research\Research Data\entykData.csv', delimiter=',')
 #Y_data = genfromtxt('C:\\Users\Research\Research Data\entykLabels.csv', delimiter =',')
 #Full dataset
-X_data = genfromtxt('C:\\Users\Research\Research Data\completeData.csv', delimiter=',')
-Y_data = genfromtxt('C:\\Users\Research\Research Data\completeLabels.csv', delimiter =',')
+X_data = pd.read_csv("C:\\Users\jdlrm\Research Data\completeData.csv")
+Y_data = pd.read_csv("C:\\Users\jdlrm\Research Data\completeLabels.csv")
+
+
 #scaling and splitting data
 #CD_scaled = preprocessing.scale(CD)
 #TCD_scaled = preprocessing.scale(TCD)
