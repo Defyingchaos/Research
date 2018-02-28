@@ -71,7 +71,7 @@ model.fit(X_train, Y_train.values.ravel())
     #Cross Validation
 scores = cross_val_score(model, X_data, Y_data.values.ravel(), cv = 5)
 
-#scoring model
+#finds and prints model scores and statistics
 def score():
     predicted=model.predict(X_test)
     #print(((((len(predicted)-(sum(predicted)))/2)+sum(predicted)))/len(predicted))
@@ -103,7 +103,7 @@ def score():
 
     save_scores(accscore, CVSmean, f1, aps, params, searchtype)
 
-
+#uploads scores to google drive
 def save_scores(accscore, CVSmean, f1, aps, params, searchtype):
     json_key = json.load(open('creds.json')) 
     scope = ['https://spreadsheets.google.com/feeds']
@@ -125,6 +125,7 @@ def save_scores(accscore, CVSmean, f1, aps, params, searchtype):
    #sheet.update_acell('A1', 'Dataset Size')
     #print(sheet.row_count)
 
+#finds next open row in spreadsheet
 def next_availible_row(sheet):
     str_list = list(filter(None, sheet.col_values(1)))
     return str(len(str_list)+1)
