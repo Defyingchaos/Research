@@ -7,7 +7,7 @@ from sklearn.svm import SVC
 from sklearn.svm import NuSVC
 from sklearn.model_selection import GridSearchCV
 from sklearn.model_selection import RandomizedSearchCV
-from sklearn.metrics import accuracy_score, average_precision_score, f1_score
+from sklearn.metrics import accuracy_score, average_precision_score, f1_score, confusion_matrix
 from sklearn.model_selection import train_test_split, cross_val_score
 from sklearn import preprocessing
 from sklearn.preprocessing import StandardScaler
